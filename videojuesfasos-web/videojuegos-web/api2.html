@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>API 2 - Juegos en Oferta</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav>
+    <a href="index.html">Inicio</a>
+    <a href="api1.html">API 1</a>
+    <a href="api2.html">API 2</a>
+    <a href="api3.html">API 3</a>
+  </nav>
+  <main>
+    <h2>Juegos en Oferta</h2>
+    <div id="deals"></div>
+  </main>
+  <script>
+    fetch('https://www.cheapshark.com/api/1.0/deals?upperPrice=15')
+      .then(res => res.json())
+      .then(data => {
+        const dealsDiv = document.getElementById('deals');
+        data.slice(0, 10).forEach(deal => {
+          dealsDiv.innerHTML += `
+            <div class="card">
+              <h3>${deal.title}</h3>
+              <p>Precio: $${deal.salePrice} (Antes: $${deal.normalPrice})</p>
+              <a href="https://www.cheapshark.com/redirect?dealID=${deal.dealID}" target="_blank">Comprar</a>
+            </div>`;
+        });
+      });
+  </script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Juegos Populares Entre Los Gamers</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav>
+    <a href="index.html">Inicio</a>
+    <a href="api1.html">API 1</a>
+    <a href="api2.html">API 2</a>
+    <a href="api3.html">API 3</a>
+  </nav>
+  <main>
+    <h2>Juegos Populares</h2>
+    <div id="games"></div>
+  </main>
+  <script>
+    const API_KEY = '6114b43f4d4844d088768d7353454172'; 
+    fetch(`https://api.rawg.io/api/games?key=${API_KEY}`)
+      .then(res => res.json())
+      .then(data => {
+        const gamesDiv = document.getElementById('games');
+        data.results.forEach(game => {
+          gamesDiv.innerHTML += `
+            <div class="card">
+              <h3>${game.name}</h3>
+              <img src="${game.background_image}" width="300">
+              <p>Rating: ${game.rating}</p>
+            </div>`;
+        });
+      });
+  </script>
+</body>
+</html>
